@@ -1,0 +1,41 @@
+{
+  "name": "clarityfi-api",
+  "version": "1.0.0",
+  "description": "Goal: Build a robust, secure, and well-tested backend. This is the most important phase for your fundamental skills.",
+  "main": "dist/app.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "lint": "eslint . --ext .ts", 
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soloeinsteinmit/clarityfi-api.git"
+  },
+  "keywords": [
+    "clarityfi-api",
+    "clarity finance"
+  ],
+  "author": "Solomon Eshun",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/soloeinsteinmit/clarityfi-api/issues"
+  },
+  "homepage": "https://github.com/soloeinsteinmit/clarityfi-api#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "@types/express": "^5.0.3",
+    "eslint": "^9.32.0",
+    "globals": "^16.3.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
