@@ -10,3 +10,19 @@
   - official typescript cli compiler options docs - https://www.typescriptlang.org/docs/handbook/compiler-options.html
 - express.js docs - https://expressjs.com/
 - npm scripts docs(how to use the scripts in package.json) - https://docs.npmjs.com/cli/v8/using-npm/scripts
+
+## 2. setting up prisma & connecting to local db
+
+what prisma is video by fireship: https://www.youtube.com/watch?v=rLRIB6AF2Dg
+
+- https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql
+- https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases-node-postgresql
+- connection prisma to db - https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/connect-your-database-typescript-postgresql
+- prisma client, client side component allowing me to communicate with my database - https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/install-prisma-client-typescript-postgresql
+- prisma command to test if your schema is valid `npx prisma validate`
+- Prisma connection resources docs
+
+  - prisma database drivers documentation - https://www.prisma.io/docs/orm/overview/databases/database-drivers
+  - drivers implementation for postgres - https://www.prisma.io/docs/orm/overview/databases/postgresql
+
+- checking if your postgres server is running on your pc `sc query postgresql-x64-17`
