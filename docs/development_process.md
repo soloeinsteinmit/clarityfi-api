@@ -26,3 +26,7 @@ what prisma is video by fireship: https://www.youtube.com/watch?v=rLRIB6AF2Dg
   - drivers implementation for postgres - https://www.prisma.io/docs/orm/overview/databases/postgresql
 
 - checking if your postgres server is running on your pc `sc query postgresql-x64-17`
+
+## 3. Creating models
+
+- official docs for creating models: https://www.prisma.io/docs/orm/prisma-schema/data-model/models

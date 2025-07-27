@@ -1,10 +1,19 @@
 import express, { Express } from "express";
+import prisma from "./utils/prisma";
+
+async function main() {
+  const users = await prisma.user.findMany();
+  console.log(users);
+
+  return users;
+}
 
 const app: Express = express();
-const port = 1234;
+const port = 1235;
 
 app.get("/", (req, res) => {
-  res.send("Hello world...!");
+  const users = main()
+  res.send(users);
 });
 
 app.listen(port, () => {

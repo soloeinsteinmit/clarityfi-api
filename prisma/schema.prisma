@@ -6,10 +6,131 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String      @id @default(uuid())
+  email           String      @unique
+  password        String
+  name            String
+  isVerified      Boolean     @default(false)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  isDeleted       Boolean     @default(false)
+
+  accounts        Account[]
+  categories      Category[]
+  transactionsInitiated   Transactions[]  @relation("InitiatorTransactions")
+}
+
+
+enum AccountType {
+  BANK
+  CREDIT_CARD
+  CASH
+  SAVINGS
+  CRYPTO
+}
+
+model Account {
+  id              String      @id @default(uuid())
+
+  userId          String
+  user            User        @relation(fields: [userId], references: [id])
+
+  name            String
+  type            AccountType
+  currency        String?     // ISO code like USD, GHS
+  curreny_balance Decimal?
+  isActive        Boolean     @default(false)
+  isDeleted       Boolean     @default(false)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  transactions    Transactions[]
+}
+
+
+enum Direction {
+  DEBIT
+  CREDIT
+}
+
+enum Status {
+  PENDING
+  AUTHORIZED
+  POSTED
+  FAILED
+  REVERSED
+  CANCELLED
+}
+
+model Transactions {
+  id              String      @id @default(uuid())
+
+  accountId       String
+  account         Account     @relation(fields: [accountId], references: [id])
+
+  category_id     String
+  category        Category    @relation(fields: [category_id],references: [id])
+
+  amount          Decimal
+  convertedAmount Decimal
+  currency        String      // ISO code like USD, GHS etc...
+  exchangeRate    Decimal
+  direction       Direction
+  status          Status
+  description     String?
+
+  createdAt       DateTime    @default(now())
+  postedAt        DateTime?   // nullable - only set when posted
+  updatedAt       DateTime    @default(now())
+
+  initiatedById   String
+  initiatedBy     User?      @relation("InitiatorTransactions", fields: [initiatedById], references: [id])
+
+  referenceId     String?
+
+  reversedTransactionId   String?         @unique
+  reversedTransaction     Transactions?   @relation("ReversalLink", fields: [reversedTransactionId], references: [id])
+  transaction             Transactions?   @relation("ReversalLink")
+  
+  metadata        Json    // ensure it includes exchange rate metadata
+}
+
+enum CategoryType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+model Category {
+  id              String      @id @default(uuid())
+
+  userId          String?
+  user            User?        @relation(fields: [userId], references: [id])
+
+  name            String
+  type            CategoryType
+  icon            String
+  isDefault       Boolean     @default(true)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @default(now())
+
+  transaction     Transactions[]
+}
+
+model DeletedUser {
+  user_id         String      @id @default(uuid())
+  email           String      @unique
+  deletedAt       DateTime    @default(now())
+  reason          String
+  snapshot        Json
+  processed       Boolean     @default(false)
 }

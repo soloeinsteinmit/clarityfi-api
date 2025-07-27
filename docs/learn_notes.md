@@ -307,3 +307,15 @@ Use **ACID transactions** at the database level.
 [14]: https://celerdata.com/glossary/normalization-vs-denormalization-the-trade-offs-you-need-to-know?utm_source=chatgpt.com "Normalization vs Denormalization: The Trade-offs You Need to Know"
 [15]: https://en.wikipedia.org/wiki/Denormalization?utm_source=chatgpt.com "Denormalization"
 [16]: https://guides.visual-paradigm.com/balancing-data-integrity-and-performance-normalization-vs-denormalization-in-database-design/?utm_source=chatgpt.com "Normalization vs. Denormalization in Database Design"
+
+## DIFFERENCE IN PRISMA GENERATE & PRISMA DB PUSH
+
+The difference between prisma generate and prisma db push lies in their respective purposes within the Prisma workflow:
+
+`prisma generate:`
+This command is responsible for generating the Prisma Client and other assets based on your `prisma/schema.prisma` file. It reads the data model and generator blocks defined in your schema and creates the necessary code for interacting with your database. This typically includes the TypeScript/JavaScript client for querying, mutating, and subscribing to data. `prisma generate` does not interact with your database directly; it only creates client-side code.
+
+`prisma db push:`
+This command is used for directly applying changes from your Prisma schema to your database schema. It is a development-focused command primarily used for rapid prototyping and iterating on your database schema without involving migration files. `prisma db push` introspects your database and makes the necessary alterations to match your `prisma/schema.prisma`. It does not create or manage migration files, and if it detects changes that could lead to data loss, it will prompt you to confirm or reset the database.
+
+In summary, `prisma generate` creates the client-side code that allows your application to interact with the database, while `prisma db push` modifies the database schema itself to match your Prisma schema, primarily for development and prototyping. For production environments and managing schema changes with data preservation, `prisma migrate dev` and `prisma migrate deploy` are typically used instead of `prisma db push`.
