@@ -47,7 +47,7 @@ model Account {
   name            String
   type            AccountType
   currency        String?     // ISO code like USD, GHS
-  curreny_balance Decimal?
+  curren_balance Decimal?
   isActive        Boolean     @default(false)
   isDeleted       Boolean     @default(false)
   createdAt       DateTime    @default(now())
@@ -77,8 +77,8 @@ model Transactions {
   accountId       String
   account         Account     @relation(fields: [accountId], references: [id])
 
-  category_id     String
-  category        Category    @relation(fields: [category_id],references: [id])
+  categoryId     String
+  category        Category    @relation(fields: [categoryId],references: [id])
 
   amount          Decimal
   convertedAmount Decimal
@@ -127,7 +127,7 @@ model Category {
 }
 
 model DeletedUser {
-  user_id         String      @id @default(uuid())
+  userId         String      @id @default(uuid())
   email           String      @unique
   deletedAt       DateTime    @default(now())
   reason          String
