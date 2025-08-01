@@ -45,6 +45,13 @@ export async function getAllUsersController(req: Request, res: Response) {
  */
 export async function getUserByIdController(req: Request, res: Response) {
   const { id } = req.params;
+  if (!id) {
+    return res.status(ERROR_CODE).json({
+      success: false,
+      message: "User ID is required",
+      data: null,
+    });
+  }
   const user = await getUserById(id);
   return res.status(SUCCESS_CODE).json(user);
 }
@@ -55,6 +62,13 @@ export async function getUserByIdController(req: Request, res: Response) {
  */
 export async function updateUserController(req: Request, res: Response) {
   const { id } = req.params;
+  if (!id) {
+    return res.status(ERROR_CODE).json({
+      success: false,
+      message: "User ID is required",
+      data: null,
+    });
+  }
   const updateUser = await updateUserById(id, req.body);
   return res.status(SUCCESS_CODE).json(updateUser);
 }
@@ -77,6 +91,13 @@ export async function downloadAccountDataController(
  */
 export async function deleteUserController(req: Request, res: Response) {
   const { id } = req.params;
+  if (!id) {
+    return res.status(ERROR_CODE).json({
+      success: false,
+      message: "User ID is required",
+      data: null,
+    });
+  }
   const deletedUser = await deleteUser(id);
   return res.status(SUCCESS_CODE).json(deletedUser);
 }

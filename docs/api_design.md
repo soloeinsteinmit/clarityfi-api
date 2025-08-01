@@ -20,7 +20,7 @@
 - `POST   /api/users/:userId/accounts` → Create account for user
 - `GET    /api/users/:userId/accounts` → Get all accounts for a user
 - `GET    /api/accounts/:accountId` → Get specific account
-- `PUT    /api/accounts/:accountId` → Update account
+- `PATCH    /api/accounts/:accountId` → Update account
 - `DELETE /api/accounts/:accountId` → Delete account
 - `GET    /api/users/:userId/accounts?isActive=true` → Filter by active
 - `GET    /api/users/:userId/accounts?isDeleted=true` → Filter by deleted
@@ -33,7 +33,7 @@
 - `GET    /api/accounts/:accountId/transactions` → Get all transactions on account
 - `GET    /api/users/:userId/transactions` → Get all user transactions
 - `GET    /api/transactions/:transactionId` → Get transaction by ID
-- `PUT    /api/transactions/:transactionId` → Update transaction
+- `PATCH    /api/transactions/:transactionId` → Update transaction
 - `DELETE /api/transactions/:transactionId` → Delete transaction
 - `GET    /api/users/:userId/transactions?status=pending` → Filter by status
 - `GET    /api/users/:userId/transactions?direction=income` → Filter by direction
@@ -48,7 +48,7 @@
 - `POST   /api/users/:userId/categories` → Create a category
 - `GET    /api/users/:userId/categories` → Get all user categories
 - `GET    /api/users/:userId/categories?isDefault=true` → Filter by default/custom
-- `PUT    /api/categories/:categoryId` → Update category
+- `PATCH    /api/categories/:categoryId` → Update category
 - `DELETE /api/categories/:categoryId` → Delete category
 
 ---

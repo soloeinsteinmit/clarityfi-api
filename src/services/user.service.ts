@@ -1,5 +1,5 @@
 import prisma from "../prisma/client";
-import { success, z } from "zod";
+import { z } from "zod";
 import bcrypt from "bcryptjs";
 
 export const userSchema = z.object({
@@ -66,7 +66,7 @@ export async function getAllUsers() {
   });
   return {
     success: true,
-    message: "",
+    message: "All users",
     data: allUsers,
   };
 }

@@ -8,6 +8,10 @@ import {
   updateUserController,
 } from "../controllers/user.controller";
 import { asyncHandler } from "../utils/asyncHandler";
+import {
+  createUserAccountController,
+  getAllUserAccountController,
+} from "../controllers/account.controller";
 
 const userRouter = Router();
 
@@ -46,5 +50,20 @@ userRouter.get("/:id/download", asyncHandler(downloadAccountDataController));
  * @desc Delete user by id
  */
 userRouter.delete("/:id", asyncHandler(deleteUserController));
+
+// =================================================
+// Accounts related
+// =================================================
+/**
+ * @route POST /api/users/:userId/accounts
+ * @desc Create new user
+ */
+userRouter.post("/:userId/accounts", asyncHandler(createUserAccountController));
+
+/**
+ * @route GET /api/users/:userId/accounts
+ * @desc Returns all users
+ */
+userRouter.get("/:userId/accounts", asyncHandler(getAllUserAccountController));
 
 export default userRouter;

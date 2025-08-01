@@ -44,7 +44,7 @@ model Account {
   userId          String
   user            User        @relation(fields: [userId], references: [id])
 
-  name            String
+  name            String      @unique
   type            AccountType
   currency        String?     // ISO code like USD, GHS
   current_balance Decimal?
