@@ -30,3 +30,12 @@ what prisma is video by fireship: https://www.youtube.com/watch?v=rLRIB6AF2Dg
 ## 3. Creating models
 
 - official docs for creating models: https://www.prisma.io/docs/orm/prisma-schema/data-model/models
+
+## 4. Prisma Quaries docs
+
+- https://www.prisma.io/docs/orm/prisma-client/queries/crud
+
+## 5. Restarting your node server authomatically with nodemon
+
+- https://www.digitalocean.com/community/tutorials/workflow-nodemon
+- https://www.npmjs.com/package/nodemon

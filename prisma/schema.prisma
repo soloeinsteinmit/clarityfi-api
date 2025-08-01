@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id              String      @id @default(uuid())
+  id              String      @id @default(uuid()) @unique
   email           String      @unique
   password        String
   name            String
@@ -39,7 +39,7 @@ enum AccountType {
 }
 
 model Account {
-  id              String      @id @default(uuid())
+  id              String      @id @default(uuid()) @unique
 
   userId          String
   user            User        @relation(fields: [userId], references: [id])
@@ -47,7 +47,7 @@ model Account {
   name            String
   type            AccountType
   currency        String?     // ISO code like USD, GHS
-  curren_balance Decimal?
+  current_balance Decimal?
   isActive        Boolean     @default(false)
   isDeleted       Boolean     @default(false)
   createdAt       DateTime    @default(now())
@@ -72,7 +72,7 @@ enum Status {
 }
 
 model Transactions {
-  id              String      @id @default(uuid())
+  id              String      @id @default(uuid()) @unique
 
   accountId       String
   account         Account     @relation(fields: [accountId], references: [id])
@@ -91,6 +91,7 @@ model Transactions {
   createdAt       DateTime    @default(now())
   postedAt        DateTime?   // nullable - only set when posted
   updatedAt       DateTime    @default(now())
+  isDeleted       Boolean     @default(false)
 
   initiatedById   String
   initiatedBy     User?      @relation("InitiatorTransactions", fields: [initiatedById], references: [id])
@@ -111,23 +112,24 @@ enum CategoryType {
 }
 
 model Category {
-  id              String      @id @default(uuid())
+  id              String      @id @default(uuid()) @unique
 
   userId          String?
-  user            User?        @relation(fields: [userId], references: [id])
+  user            User?       @relation(fields: [userId], references: [id])
 
   name            String
   type            CategoryType
-  icon            String
+  icon            String?
   isDefault       Boolean     @default(true)
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @default(now())
+  isDeleted       Boolean     @default(false)
 
   transaction     Transactions[]
 }
 
 model DeletedUser {
-  userId         String      @id @default(uuid())
+  userId         String       @id @default(uuid()) @unique
   email           String      @unique
   deletedAt       DateTime    @default(now())
   reason          String

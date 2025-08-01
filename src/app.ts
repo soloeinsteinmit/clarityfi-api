@@ -1,19 +1,15 @@
+/**
+ * Entry point of my Express App
+ */
 import express, { Express } from "express";
-import prisma from "./utils/prisma";
+import userRouter from "./routes/user.route";
 
 const app: Express = express();
-const port: number = 1235;
 
-app.get("/", async (req, res) => {
-  try {
-    const users = await prisma.user.findMany();
+// Middleware
+app.use(express.json()); // Parse JSON request body
 
-    res.send(users);
-  } catch (error) {
-    console.log(error);
-  }
-});
+// Routes
+app.use("/api/users", userRouter); // e.g., https://clarityfi.com/api/users
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
-});
+export default app;
