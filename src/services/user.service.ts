@@ -1,5 +1,5 @@
 import prisma from "../prisma/client";
-import { z } from "zod";
+import { success, z } from "zod";
 import bcrypt from "bcryptjs";
 
 export const userSchema = z.object({
@@ -41,7 +41,11 @@ export async function createUser(data: CreateUserSchema) {
     },
   });
 
-  return user;
+  return {
+    success: true,
+    message: "Account creation was successful",
+    data: user,
+  };
 }
 
 /**
@@ -49,7 +53,7 @@ export async function createUser(data: CreateUserSchema) {
  * @returns A list of users.
  */
 export async function getAllUsers() {
-  return await prisma.user.findMany({
+  const allUsers = await prisma.user.findMany({
     select: {
       id: true,
       name: true,
@@ -60,6 +64,11 @@ export async function getAllUsers() {
       isDeleted: true,
     },
   });
+  return {
+    success: true,
+    message: "",
+    data: allUsers,
+  };
 }
 
 /**
@@ -67,7 +76,7 @@ export async function getAllUsers() {
  * @returns User object
  */
 export async function getUserById(userId: string) {
-  return await prisma.user.findUnique({
+  const userInfo = await prisma.user.findUnique({
     where: {
       id: userId,
     },
@@ -81,6 +90,11 @@ export async function getUserById(userId: string) {
       isDeleted: true,
     },
   });
+  return {
+    success: true,
+    message: "User info retrived",
+    data: userInfo,
+  };
 }
 
 // Partial schema for optional updates
@@ -113,7 +127,7 @@ export async function updateUserById(userId: string, data: UpdateUserInput) {
   // check if user is updating email and check if the new email exist
   if (updateData.email) {
     const emailExist = await checkEmail(updateData.email);
-    if (emailExist) return { message: "Email already exist" };
+    if (emailExist) return { success: false, message: "Email already exist" };
   }
 
   const updatedUser = await prisma.user.update({
@@ -132,7 +146,11 @@ export async function updateUserById(userId: string, data: UpdateUserInput) {
     },
   });
 
-  return updatedUser;
+  return {
+    success: true,
+    message: "Account creation was successful",
+    data: updatedUser,
+  };
 }
 
 /**
@@ -149,7 +167,7 @@ export async function deleteUser(userId: string) {
   });
 
   // TODO: RETURN THIS FOR NOW
-  return true;
+  return { success: true, message: "Account has been deleted", data: {} };
 }
 
 /**
@@ -160,13 +178,12 @@ export async function deleteUser(userId: string) {
 export async function downloadAccountData(userId: string) {
   // TODO: LOGIC FOR DOWNLOADING
 
-  return true;
   // TODO: RETURN THIS FOR NOW
-  // return {
-  //   success: true,
-  //   message: "Account has been deleted successfully",
-  //   code: "ACCOUNT_DELETION",
-  // };
+  return {
+    success: true,
+    message: "Account data downloaded",
+    data: {},
+  };
 }
 
 /**

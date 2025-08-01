@@ -19,20 +19,24 @@ export async function createUserController(req: Request, res: Response) {
   const parsedData = userSchema.safeParse(req.body);
 
   if (!parsedData.success) {
-    return res.status(ERROR_CODE).json({ error: parsedData.error });
+    return res.status(ERROR_CODE).json({
+      success: false,
+      message: parsedData.error,
+      data: {},
+    });
   }
 
   const user = await createUser(parsedData.data);
-  return res.status(SUCCESS_CODE).json({ user });
+  return res.status(SUCCESS_CODE).json(user);
 }
 
 /**
  * Controller: Handles GET /api/users
  * Sends list of all users in JSON response
  */
-export async function getUsersController(req: Request, res: Response) {
-  const users = await getAllUsers(); // call service layer
-  return res.status(SUCCESS_CODE).json(users); // send response
+export async function getAllUsersController(req: Request, res: Response) {
+  const users = await getAllUsers();
+  return res.status(SUCCESS_CODE).json(users);
 }
 
 /**
@@ -41,9 +45,8 @@ export async function getUsersController(req: Request, res: Response) {
  */
 export async function getUserByIdController(req: Request, res: Response) {
   const { id } = req.params;
-  // console.log("\nparams -> ", req.params);
   const user = await getUserById(id);
-  return res.status(SUCCESS_CODE).json({ user });
+  return res.status(SUCCESS_CODE).json(user);
 }
 
 /**
@@ -64,13 +67,8 @@ export async function downloadAccountDataController(
   req: Request,
   res: Response
 ) {
-  const isDataDownloaded = await downloadAccountData(req.body);
-  return res.status(SUCCESS_CODE).json({
-    //TODO: chane this later on
-    success: isDataDownloaded,
-    message: "Account data has been downloaded successfully",
-    code: "ACCOUNT_DATA_DOWNLOAD",
-  });
+  const dowloadedData = await downloadAccountData(req.body);
+  return res.status(SUCCESS_CODE).json(dowloadedData);
 }
 
 /**
@@ -79,11 +77,6 @@ export async function downloadAccountDataController(
  */
 export async function deleteUserController(req: Request, res: Response) {
   const { id } = req.params;
-  const idUserDeleted = await deleteUser(id);
-  return res.status(SUCCESS_CODE).json({
-    //TODO: chane this later on
-    success: idUserDeleted,
-    message: "Account has been deleted successfully",
-    code: "ACCOUNT_DELETION",
-  });
+  const deletedUser = await deleteUser(id);
+  return res.status(SUCCESS_CODE).json(deletedUser);
 }

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  getUsersController,
+  getAllUsersController,
   createUserController,
   getUserByIdController,
   deleteUserController,
@@ -21,7 +21,7 @@ userRouter.post("/", asyncHandler(createUserController));
  * @route GET /api/users
  * @desc Returns all users
  */
-userRouter.get("/", asyncHandler(getUsersController));
+userRouter.get("/", asyncHandler(getAllUsersController));
 
 /**
  * @route GET /api/users/:id
@@ -30,10 +30,10 @@ userRouter.get("/", asyncHandler(getUsersController));
 userRouter.get("/:id", asyncHandler(getUserByIdController));
 
 /**
- * @route PUT /api/users/:id
+ * @route PATCH /api/users/:id
  * @desc Update user by id
  */
-userRouter.put("/:id", asyncHandler(updateUserController));
+userRouter.patch("/:id", asyncHandler(updateUserController));
 
 /**
  * @route GET /api/users/:id/download

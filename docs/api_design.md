@@ -9,7 +9,7 @@
 - `POST   /api/users` → Create a user
 - `GET    /api/users` → Get all users
 - `GET    /api/users/:id` → Get user by ID
-- `PUT    /api/users/:id` → Update user info
+- `PATCH    /api/users/:id` → Update user info
 - `DELETE /api/users/:id` → Delete user
 - `GET    /api/users/:id/download` → Download account data to excel/csv
 
